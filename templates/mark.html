@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Select Markers</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+        }
+
+        h1 {
+            margin-top: 150px;
+            margin-right: 250px;
+        }
+
+        #image {
+            max-width: 65%;
+            /* Restrict image to occupy only 75% of the window */
+            cursor: crosshair;
+            /* Change cursor to crosshair */
+            border-radius: 10px;
+            /* Make corners curved */
+        }
+
+        .marker-list {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 200px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #95e22a;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .marker-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .marker-item span {
+            flex-grow: 1;
+            padding-right: 10px;
+        }
+
+        .delete-button {
+            cursor: pointer;
+            color: red;
+            border: none;
+            background: none;
+            font-size: 16px;
+        }
+
+        
+        .container {
+            display: flex;
+            width: 100%; /* Occupy full width of the viewport */
+            height: 100%; /* Occupy full height of the viewport */
+            flex-direction: column;
+            align-items: left;
+            justify-content: left;
+        }
+
+        .container img {
+            display: flex;
+            margin-left: 150px;
+            display: block;
+        }
+
+        .container button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .container button:hover {
+            background-color: #0056b3;
+        }
+
+        .note-section {
+            margin-left: 100px;
+            /* Adjust margin as needed */
+            margin-top: 100px;
+            /* Adjust margin as needed */
+            padding: 20px;
+            background-color: #eb2323;
+            border-radius: 10px;
+            width: 200px;
+            /* Adjust width as needed */
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-container" style="margin-top: 150px;">
+        <div class="header">
+            <div class="note-section">
+                <h2>Note</h2>
+                <p>For optimal results, please select objects with clear and distinct boundaries.</p>
+            </div>
+            <h1 style="position: left;">Select Markers</h1>
+        </div>
+        <div class="container">
+            <div style="position: left;">
+                <img id="image" src="{{ url_for('uploaded_file', filename=filename) }}" alt="Uploaded Image"
+                    onclick="addMarker(event)">
+            </div>
+            <div class="marker-list" id="marker-list">
+                <h3>Markers</h3>
+            </div>
+            <button onclick="submitMarkers()">Submit Markers</button>
+        </div>
+    </div>
+    <script>
+        const filename = "{{ filename }}";
+    </script>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+
+</html>

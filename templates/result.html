@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Segmentation Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        h1 {
+            margin-top: 100px;
+        }
+
+        img {
+            max-width: 65%;
+            /* Restrict image to occupy only 65% of the window */
+            border-radius: 10px;
+            /* Make corners curved */
+            margin-bottom: 20px;
+        }
+
+        .button {
+            position: absolute;
+            bottom: 50%;
+            padding: 10px 20px;
+            background-color: black;
+            color: #fff;
+            text-decoration: none;
+            /* Remove underline */
+            border-radius: 5px;
+            /* Rounded corners */
+            opacity: 0;
+            transition: opacity 0.3s;
+            margin-bottom: 100px;
+        }
+
+        .download_zip {
+            position: absolute;
+            bottom: 50%;
+            padding: 10px 20px;
+            background-color: black;
+            font-size: 16px;
+            color: #fff;
+            text-decoration: none;
+            /* Remove underline */
+            border-radius: 5px;
+            /* Rounded corners */
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .button,
+        .download_zip {
+            position: relative;
+            left: 0;
+            right: 0;
+            margin: 10px auto; /* Center align the buttons */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Segmentation Result</h1>
+        <img src="{{ url_for('uploaded_file', filename=segmented_image_path) }}" alt="Segmented Image">
+        <button onclick="downloadZip()" class="download_zip">Download Segmented Image</button>
+        <br>
+        <a href="{{ url_for('index') }}" class="button" id="uploadButton">Upload another image</a>
+    </div>
+    <script>
+        function downloadZip() {
+            window.location.href = "{{ url_for('download_zip', filename=segmented_image_path) }}";
+        }
+
+        let timeout;
+
+        document.addEventListener('mousemove', function () {
+            const button = document.getElementById('uploadButton');
+            const zip_button = document.querySelector('.download_zip');
+            button.style.opacity = '1';
+            zip_button.style.opacity = '1';
+
+            clearTimeout(timeout);
+            timeout = setTimeout(function () {
+                button.style.opacity = '0';
+                zip_button.style.opacity = '0';
+            }, 1000); // Adjust the timeout duration as needed
+        });
+    </script>
+</body>
+
+</html>

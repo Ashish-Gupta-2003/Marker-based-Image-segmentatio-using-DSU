@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Image Upload</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script>
+        function displayFileName() {
+            const fileInput = document.getElementById('fileInput');
+            const fileInputLabel = document.getElementById('fileInputLabel');
+
+            if (fileInput.files.length > 0) {
+                fileInputLabel.textContent = fileInput.files[0].name;
+            }
+        }
+        
+    </script>
+    <style>
+        .container {
+            text-align: center;
+            margin-top: 40px;
+            /* Add vertical space */
+        }
+
+        .file-input-container {
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .file-input-container input[type=file] {
+            position: absolute;
+            font-size: 999px;
+            opacity: 0;
+            right: 0;
+            top: 0;
+        }
+
+        .file-input-container button {
+            padding: 8px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+            /* Rounded corners */
+        }
+
+        .upload-button {
+            margin-top: 20px;
+            /* Add space between Browse and Upload */
+        }
+
+        .note-section {
+            margin-right: 40px;
+            /* Adjust margin as needed */
+            margin-top: 40px;
+            /* Adjust margin as needed */
+            padding: 20px;
+            background-color: #eb2323;
+            border-radius: 10px;
+            width: 200px;
+            /* Adjust width as needed */
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="note-section">
+        <h2>Note</h2>
+        <p>For best results, upload an image with clear edges to separate the object from the background effectively.
+        </p>
+    </div>
+    <div class="container">
+        <div>
+            <h1>Upload an Image</h1>
+            <form action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data">
+                <div class="file-input-container">
+                    <label for="fileInput" id="fileInputLabel">Choose a file</label>
+                    <input type="file" name="file" id="fileInput" onchange="displayFileName()">
+                    <button type="button" onclick="document.getElementById('fileInput').click() ">Browse</button>
+                </div>
+                <br>
+                <input type="submit" value="Upload" class="upload-button">
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
